@@ -1,6 +1,21 @@
     /* You can add global styles to this file, and also import other style files */
 
     @import "~bootstrap/dist/css/bootstrap.min.css";
+    
+/*!
+
+ =========================================================
+ * Paper Dashboard 2 Pro - v2.0.1
+ =========================================================
+
+ * Product Page: https://www.creative-tim.com/product/paper-dashboard-2-pro
+ * Copyright 2018 Creative Tim (http://www.creative-tim.com)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
 
  .power-consumption {
     text-align: right;
