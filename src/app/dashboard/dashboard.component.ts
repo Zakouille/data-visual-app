@@ -12,43 +12,29 @@ import { switchMap } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
 
   dataToPrint = Object;
-
-
   subscription: Subscription;
-  statusText: string;
-
 
   constructor(private service: GettingDataService) {
   }
-
-  getData() {
-    this.service.getData().subscribe(data =>
-      this.dataToPrint = JSON.parse(JSON.stringify(data))
-      , error => console.log(error));
-    console.log("hello");
-    return this.dataToPrint;
-  }
-
-  test() {
-    this.getData();
-    console.log(this.dataToPrint);
-  }
-
+  /*
+    TestGetData() {
+      this.service.getData().subscribe(data =>
+        this.dataToPrint = JSON.parse(JSON.stringify(data))
+        , error => console.log(error));
+      console.log("this is a test");
+    }
+    */
 
   public canvas: any;
   public ctx;
   public chartColor;
-  // public chartEmail;
-  // public chartHours;
 
   ngOnInit() {
-
-    //setInterval(this.getData(), 1000);
 
     this.subscription = timer(0, 2000).pipe(
       switchMap(() => this.service.getData())
     ).subscribe(result => this.dataToPrint = JSON.parse(JSON.stringify(result))
-    , error => console.log(error));
+      , error => console.log(error));
 
     this.chartColor = "#FFFFFF";
 
