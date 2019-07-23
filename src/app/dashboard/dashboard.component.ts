@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
 
   dataToPrint = Object;
+  lineChart: Chart;
   dataChart = [];
   currentMonth = new Date().getMonth();
   months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -29,12 +30,18 @@ export class DashboardComponent implements OnInit {
     return this.dataToPrint;
   }
 
+
   getOutputPotatoes() {
-    this.service.getOutputPotatoes().subscribe(data => 
-      this.dataChart.push(JSON.parse(JSON.stringify(data))
-      , error => console.log(error)))
-    
-      console.log(this.dataChart)
+    var data = []
+    this.service.getOutputPotatoes().subscribe(data => data.forEach(element => {
+      this.dataChart.push(element)
+      this.updateChart()
+    }), error => console.log(error))
+
+  }
+
+  updateChart() {
+    this.lineChart.update();
   }
 
   public canvas: any;
@@ -44,6 +51,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     //setInterval(this.getData(), 1000);
+
+    this.getOutputPotatoes();
 
     var dayOfMonth = []
 
@@ -60,19 +69,24 @@ export class DashboardComponent implements OnInit {
 
     var speedCanvas = document.getElementById("speedChart");
 
+    var one = [0, 5, 10, 12, 10, 27, 60, 12, 42, 45, 50, 65]
+
     var dataFirst = {
       data: this.dataChart,
       fill: false,
-      borderColor: '#fbc658',
+      borderColor: '#081e26',
       backgroundColor: 'transparent',
-      pointBorderColor: '#fbc658',
+      pointBorderColor: '#081e26',
       pointRadius: 4,
       pointHoverRadius: 4,
       pointBorderWidth: 8,
     };
 
+
+     var two = [0, 5, 10, 0, 20, 27, 30, 34, 42, 45, 55, 63]
+
     var dataSecond = {
-      data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
+      data: two,
       fill: false,
       borderColor: '#51CACF',
       backgroundColor: 'transparent',
@@ -84,7 +98,7 @@ export class DashboardComponent implements OnInit {
 
     var speedData = {
       labels: dayOfMonth,
-      datasets: [dataFirst, dataSecond]
+      datasets: [dataFirst]
     };
 
     var chartOptions = {
@@ -94,12 +108,13 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    var lineChart = new Chart(speedCanvas, {
+    this.lineChart = new Chart(speedCanvas, {
       type: 'line',
       hover: false,
       data: speedData,
       options: chartOptions
     });
+
   }
 
 }
