@@ -45,6 +45,10 @@ export class DashboardComponent implements OnInit {
     this.lineChart.update();
   }
 
+  resetZoomChart() {
+    this.lineChart.resetZoom();
+  }
+
   public canvas: any;
   public ctx;
   public chartColor;
