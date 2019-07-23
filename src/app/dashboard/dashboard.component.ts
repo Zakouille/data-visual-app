@@ -9,7 +9,7 @@ import Chart from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
-  dataToPrint = [];
+  dataToPrint = Object;
 
 
   constructor(private service: GettingDataService) {
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
 
   getData() {
     this.service.getData().subscribe(data =>
-      this.dataToPrint.push(JSON.parse(JSON.stringify(data)))
+      this.dataToPrint = JSON.parse(JSON.stringify(data))
       , error => console.log(error));
   }
 

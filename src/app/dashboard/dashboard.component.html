@@ -10,7 +10,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Outside Temperature</p>
-                            <p class="card-title">23°C
+                            <p class="card-title">{{this.dataToPrint.temperatureOutside}}°C
                                 <p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Lights</p>
-                            <p class="card-title">0,34kWh
+                            <p class="card-title">{{this.dataToPrint.lights}}kWh
                                 <p>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Frying Temperature</p>
-                            <p class="card-title">122°C
+                            <p class="card-title">{{this.dataToPrint.fryingTemperature}}°C
                                 <p>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="col-7 col-md-8">
                         <div class="numbers">
                             <p class="card-category">Gas Consumption</p>
-                            <p class="card-title">200kg</p>
+                            <p class="card-title">{{this.dataToPrint.gasConsumption}}kg</p>
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
             </div>
             <div class="card-footer ">
                 <div class="legend">
-                    <p class="power-consumption">11kWh</p>
+                    <p class="power-consumption">{{this.dataToPrint.powerConsumption?.motor1}}kWh</p>
                 </div>
                 <hr>
                 <div class="stats">
@@ -157,7 +157,7 @@
             </div>
             <div class="card-footer ">
                 <div class="legend">
-                    <p class="power-consumption">20kWh</p>
+                    <p class="power-consumption">{{this.dataToPrint.powerConsumption?.motor2}}kWh</p>
                 </div>
                 <hr>
                 <div class="stats">
@@ -177,7 +177,7 @@
             </div>
             <div class="card-footer ">
                 <div class="legend">
-                    <p class="power-consumption">23kWh</p>
+                    <p class="power-consumption">{{this.dataToPrint.powerConsumption?.motor3}}kWh</p>
                 </div>
                 <hr>
                 <div class="stats">
