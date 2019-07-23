@@ -105,8 +105,20 @@ export class DashboardComponent implements OnInit {
       legend: {
         display: false,
         position: 'top'
+      },
+      plugins: {
+        zoom: {
+          pan: {
+            enabled: true,
+            mode: 'y'
+          },
+          zoom: {
+            enabled: true,
+            mode: 'xy'
+          }
+        }
       }
-    };
+    }
 
     this.lineChart = new Chart(speedCanvas, {
       type: 'line',
