@@ -88,25 +88,15 @@ export class DashboardComponent implements OnInit {
     };
 
 
-     var two = [0, 5, 10, 0, 20, 27, 30, 34, 42, 45, 55, 63]
-
-    var dataSecond = {
-      data: two,
-      fill: false,
-      borderColor: '#51CACF',
-      backgroundColor: 'transparent',
-      pointBorderColor: '#51CACF',
-      pointRadius: 4,
-      pointHoverRadius: 4,
-      pointBorderWidth: 8
-    };
-
     var speedData = {
       labels: dayOfMonth,
       datasets: [dataFirst]
     };
 
+    var timeFormat = "MM/DD/YYYY HH:mm";
+
     var chartOptions = {
+    
       legend: {
         display: false,
         position: 'top'
@@ -119,11 +109,12 @@ export class DashboardComponent implements OnInit {
           },
           zoom: {
             enabled: true,
-            mode: 'xy'
-          }
+            mode: 'x',
+          },
         }
       }
     }
+  
 
     this.lineChart = new Chart(speedCanvas, {
       type: 'line',
