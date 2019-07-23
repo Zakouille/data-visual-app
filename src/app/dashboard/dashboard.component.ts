@@ -12,9 +12,9 @@ import { switchMap } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
 
   dataToPrint = Object;
+  dataChart = [];
   currentMonth = new Date().getMonth();
   months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  
 
   subscription: Subscription;
   statusText: string;
@@ -31,11 +31,13 @@ export class DashboardComponent implements OnInit {
     return this.dataToPrint;
   }
 
-  test() {
-    this.getData();
-    console.log(this.dataToPrint);
+  getOutputPotatoes() {
+    this.service.getOutputPotatoes().subscribe(data => 
+      this.dataChart.push(JSON.parse(JSON.stringify(data))
+      , error => console.log(error)))
+    
+      console.log(this.dataChart)
   }
-
 
   public canvas: any;
   public ctx;
@@ -63,7 +65,7 @@ export class DashboardComponent implements OnInit {
     var speedCanvas = document.getElementById("speedChart");
 
     var dataFirst = {
-      data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
+      data: this.dataChart,
       fill: false,
       borderColor: '#fbc658',
       backgroundColor: 'transparent',
