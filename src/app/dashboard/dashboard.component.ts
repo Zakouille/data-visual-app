@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GettingDataService } from '../getting-data.service';
 import Chart from 'chart.js';
+import { Subscription, timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +14,10 @@ export class DashboardComponent implements OnInit {
   dataToPrint = Object;
 
 
+  subscription: Subscription;
+  statusText: string;
+
+
   constructor(private service: GettingDataService) {
   }
 
@@ -19,9 +25,12 @@ export class DashboardComponent implements OnInit {
     this.service.getData().subscribe(data =>
       this.dataToPrint = JSON.parse(JSON.stringify(data))
       , error => console.log(error));
+    console.log("hello");
+    return this.dataToPrint;
   }
 
   test() {
+    this.getData();
     console.log(this.dataToPrint);
   }
 
@@ -34,7 +43,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getData();
+    //setInterval(this.getData(), 1000);
+
+    this.subscription = timer(0, 2000).pipe(
+      switchMap(() => this.service.getData())
+    ).subscribe(result => this.dataToPrint = JSON.parse(JSON.stringify(result))
+    , error => console.log(error));
 
     this.chartColor = "#FFFFFF";
 
