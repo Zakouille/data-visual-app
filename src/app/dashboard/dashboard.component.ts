@@ -12,7 +12,9 @@ import { switchMap } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
 
   dataToPrint = Object;
-
+  currentMonth = new Date().getMonth();
+  months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  
 
   subscription: Subscription;
   statusText: string;
@@ -44,6 +46,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     //setInterval(this.getData(), 1000);
+
+    var dayOfMonth = []
+
+    for (var i = 1; i <= 31; i++) {
+      dayOfMonth.push(i)
+    }
 
     this.subscription = timer(0, 2000).pipe(
       switchMap(() => this.service.getData())
@@ -77,7 +85,7 @@ export class DashboardComponent implements OnInit {
     };
 
     var speedData = {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: dayOfMonth,
       datasets: [dataFirst, dataSecond]
     };
 
