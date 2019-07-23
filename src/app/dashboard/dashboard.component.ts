@@ -17,8 +17,6 @@ export class DashboardComponent implements OnInit {
   months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
   subscription: Subscription;
-  statusText: string;
-
 
   constructor(private service: GettingDataService) {
   }
@@ -42,8 +40,6 @@ export class DashboardComponent implements OnInit {
   public canvas: any;
   public ctx;
   public chartColor;
-  // public chartEmail;
-  // public chartHours;
 
   ngOnInit() {
 
@@ -58,7 +54,7 @@ export class DashboardComponent implements OnInit {
     this.subscription = timer(0, 2000).pipe(
       switchMap(() => this.service.getData())
     ).subscribe(result => this.dataToPrint = JSON.parse(JSON.stringify(result))
-    , error => console.log(error));
+      , error => console.log(error));
 
     this.chartColor = "#FFFFFF";
 
