@@ -3,6 +3,7 @@ import { GettingDataService } from '../getting-data.service';
 import Chart from 'chart.js';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import 'chartjs-plugin-zoom';
 
 @Component({
   selector: 'app-dashboard',
