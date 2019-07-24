@@ -11,6 +11,8 @@ export class GettingDataService {
   
   constructor(private http: HttpClient) { }
 
+  //const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+
   public getData(): Observable<any[]> {
     return this.http.get<any[]>(environment.apiUrl + '/generate/data');
   }

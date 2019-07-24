@@ -146,7 +146,7 @@ export class DashboardComponent implements OnInit {
 					yAxes: [{
 						scaleLabel: {
 							display: true,
-							labelString: 'value'
+							labelString: 'Value'
 						}
 					}]
 				},
@@ -164,14 +164,6 @@ export class DashboardComponent implements OnInit {
         }
 			}
 		};
-
-
-    // this.lineChart = new Chart(speedCanvas, {
-    //   type: 'line',
-    //   hover: false,
-    //   data: speedData,
-    //   options: config
-    // });
 
     this.lineChart = new Chart(speedCanvas, config);
 

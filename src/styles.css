@@ -22,6 +22,10 @@
     font-size: 50px
  }
 
+ .button-zoom {
+   margin-right: 10px;
+ }
+
  .bootstrap-switch {
     display: inline-block;
     direction: ltr;
