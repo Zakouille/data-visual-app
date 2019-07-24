@@ -55,7 +55,8 @@ export class DashboardComponent implements OnInit {
   }
 
   newDate(days) {
-    var day = this.now.clone().add(days, 'd').toDate();
+    
+    var day = this.now.clone().subtract(days, 'd').toDate();
     return day
   }
 
