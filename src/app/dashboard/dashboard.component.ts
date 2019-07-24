@@ -4,6 +4,7 @@ import Chart from 'chart.js';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import 'chartjs-plugin-zoom';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,11 @@ export class DashboardComponent implements OnInit {
   lineChart: Chart;
   dataChart = [];
   currentMonth = new Date().getMonth();
+  currentDay = new Date().getDate();
   months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  now = moment();
+  timeFormat = 'MM/DD/YYYY HH:mm';
+
 
   subscription: Subscription;
 
@@ -49,6 +54,36 @@ export class DashboardComponent implements OnInit {
     this.lineChart.resetZoom();
   }
 
+   randomScalingFactor() {
+    return Math.round(Math.random() * 100 * (Math.random() > 0.5 ? -1 : 1));
+  }
+   randomColorFactor() {
+    return Math.round(Math.random() * 255);
+  }
+   randomColor(opacity) {
+    return 'rgba(' + this.randomColorFactor() + ',' + this.randomColorFactor() + ',' + this.randomColorFactor() + ',' + (opacity || '.3') + ')';
+  }
+  newDate(days) {
+    var day = this.now.clone().add(days, 'd').toDate();
+    console.log(day)
+    return day
+  }
+
+  newMonth() {
+
+    var month = []
+
+    for (var i = 1; i <= 31; i++) {
+      month.push(this.newDate(i))
+    }
+
+    // console.log(month)
+  }
+
+   newDateString(days) {
+    return this.now.clone().add(days, 'd').format(this.timeFormat);
+  }
+
   public canvas: any;
   public ctx;
   public chartColor;
@@ -59,10 +94,18 @@ export class DashboardComponent implements OnInit {
 
     this.getOutputPotatoes();
 
-    var dayOfMonth = []
+    // this.newMonth()
 
-    for (var i = 1; i <= 31; i++) {
+    var dayOfMonth = []
+    var hourOfDay = []
+
+    console.log(this.currentDay)
+    for (var i = 1; i <= this.currentDay; i++) {
       dayOfMonth.push(i)
+    }
+
+    for (var i = 0; i <= 24; i++) {
+      hourOfDay.push(i)
     }
 
     this.subscription = timer(0, 2000).pipe(
@@ -74,9 +117,7 @@ export class DashboardComponent implements OnInit {
 
     var speedCanvas = document.getElementById("speedChart");
 
-    var one = [0, 5, 10, 12, 10, 27, 60, 12, 42, 45, 50, 65]
-
-    var dataFirst = {
+    var data = {
       data: this.dataChart,
       fill: false,
       borderColor: '#081e26',
@@ -90,13 +131,12 @@ export class DashboardComponent implements OnInit {
 
     var speedData = {
       labels: dayOfMonth,
-      datasets: [dataFirst]
+      datasets: [data]
+
     };
 
-    var timeFormat = "MM/DD/YYYY HH:mm";
 
     var chartOptions = {
-    
       legend: {
         display: false,
         position: 'top'
@@ -115,13 +155,87 @@ export class DashboardComponent implements OnInit {
       }
     }
   
+    var arrayOfDay = []
 
-    this.lineChart = new Chart(speedCanvas, {
-      type: 'line',
-      hover: false,
-      data: speedData,
-      options: chartOptions
-    });
+    for (var i = 0; i < 31; i++) {
+      arrayOfDay.push(this.newDate(i))
+    }
+
+    var arrayOfData = []
+
+    for (var i = 0; i < 100; i++) {
+      arrayOfData.push(this.randomScalingFactor())
+    }
+
+    var config = {
+			type: 'line',
+			data: {
+				labels: arrayOfDay, // Date Objects
+				datasets: [{
+					label: 'Potatoes',
+					data: arrayOfData,
+					fill: false,
+          borderColor: '#081e26',
+      backgroundColor: 'transparent',
+      pointBorderColor: '#081e26',
+      pointRadius: 4,
+      pointHoverRadius: 4,
+      pointBorderWidth: 8,        
+        }, ]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Chart.js Time Scale'
+				},
+				scales: {
+					xAxes: [{
+						type: 'time',
+						time: {
+							parser: this.timeFormat,
+							// round: 'day'
+							tooltipFormat: 'll HH:mm'
+						},
+						scaleLabel: {
+							display: true,
+							labelString: 'Date'
+						},
+						ticks: {
+							maxRotation: 0
+						}
+					}],
+					yAxes: [{
+						scaleLabel: {
+							display: true,
+							labelString: 'value'
+						}
+					}]
+				},
+				plugins: {
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: 'x'
+            },
+            zoom: {
+              enabled: true,
+              mode: 'x',
+            },
+          }
+        }
+			}
+		};
+
+
+    // this.lineChart = new Chart(speedCanvas, {
+    //   type: 'line',
+    //   hover: false,
+    //   data: speedData,
+    //   options: config
+    // });
+
+    this.lineChart = new Chart(speedCanvas, config);
 
   }
 
