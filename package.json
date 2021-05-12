@@ -21,7 +21,7 @@
     "@angular/router": "~8.1.1",
     "@swimlane/ngx-charts": "^12.0.1",
     "bootstrap": "^4.3.1",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-zoom": "^0.7.3",
     "igniteui-angular2": "^5.0.3",
     "moment": "^2.24.0",
